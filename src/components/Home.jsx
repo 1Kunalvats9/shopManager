@@ -49,6 +49,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <button onClick={()=>{navigate('/barcode')}}>Go to Barcode</button>
       <Footer />
     </div>
   );
