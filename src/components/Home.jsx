@@ -49,7 +49,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <button onClick={()=>{navigate('/barcode')}}>Go to Barcode</button>
+      <button className="px-3 py-2 border-2 border-black rounded-md" onClick={()=>{navigate('/barcode')}}>Go to Barcode</button>
       <Footer />
     </div>
   );
