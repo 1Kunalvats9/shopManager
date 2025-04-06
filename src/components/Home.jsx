@@ -4,10 +4,10 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 export default function Home() {
   const [startBtn, setStartBtn] = useState("Get Started")
-  const router = useNavigate();
+  const navigate = useNavigate();
   const handleClick = () => {
     const token = localStorage.getItem("token")
-    token ? router("/dashboard") : router('/login')
+    token ? navigate("/dashboard") : navigate('/login')
   }
   return (
     <div className="w-[100vw] min-h-screen flex flex-col items-center justify-start">

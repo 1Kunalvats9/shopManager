@@ -7,7 +7,7 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [email, setEmail] = useState(null); 
-  const router = useNavigate();
+  const navigate = useNavigate();
   const [totalProducts, settotalProducts] = useState(0)
   const [totalRevenue, settotalRevenue] = useState(0)
   const [dailyCustomer, setdailyCustomer] = useState(0)
@@ -22,7 +22,7 @@ const Page = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      router("/login"); 
+      navigate("/login"); 
     } else {
       setUser({ loggedIn: true });
     }
@@ -171,10 +171,10 @@ const Page = () => {
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-lg font-medium text-gray-900">Product Management</h3>
           <div className="flex items-center gap-4">
-            <button className="flex cursor-pointer items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors" onClick={()=>{router("/sell-products")}}>
+            <button className="flex cursor-pointer items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors" onClick={()=>{navigate("/sell-products")}}>
               Sell
             </button>
-            <button onClick={()=>{router("/add-products")}} className="flex cursor-pointer items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+            <button onClick={()=>{navigate("/add-products")}} className="flex cursor-pointer items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus h-5 w-5 mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path>
               </svg>Add Product</button>
           </div>

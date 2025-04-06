@@ -5,7 +5,7 @@ const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [shopName, setShopName] = useState("")
-  const router = useNavigate()
+  const navigate = useNavigate()
   return (
     <div className='w-screen flex items-center justify-center h-screen'>
       <div className='shadow-lg p-5 w-[40%] min-h-[40%] rounded-3xl border-t-4 border-[#5046E5]'>
@@ -30,7 +30,7 @@ const Register = () => {
               console.log(shopName,email)
               toast.success('User registered successfully')
               form.reset();
-              router("/login")
+              navigate("/login")
               
             } else {
               console.log("User registration failed.");

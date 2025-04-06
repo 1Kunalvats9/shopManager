@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const router = useNavigate()
+  const navigate = useNavigate()
   return (
     <div className='w-screen flex items-center justify-center h-screen'>
       <div className='shadow-lg p-5 rounded-3xl w-[40%] min-h-[40%] border-t-4 border-[#5046E5]'>
@@ -31,7 +31,7 @@ const Login = () => {
               localStorage.setItem("token", data.token);
               localStorage.setItem("email", email);
               toast.success("User Logged In successfully");
-              router("/dashboard");
+              navigate("/dashboard");
             } else {
               toast.error(data?.error || "Login failed");
             }

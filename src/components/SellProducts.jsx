@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
 
 const SellProducts = () => {
-    const router = useNavigate();
+    const navigate = useNavigate();
     const [isSearching, setisSearching] = useState(false);
     const [searchFor, setsearchFor] = useState("");
     const [products, setProducts] = useState([]);
@@ -18,7 +18,7 @@ const SellProducts = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) {
-            router.push("/login");
+            navigate.push("/login");
             return;
         }
 
