@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+// import { LuScanLine } from "react-icons/lu";
 const AddProducts = () => {
     const [name, setName] = useState("")
     const [category, setCategory] = useState("")
@@ -22,7 +22,7 @@ const AddProducts = () => {
         setLoading(true); // Start loading
     
         try {
-            const res = await fetch("http://localhost:3000/api/upload/upload-file", {
+            const res = await fetch("https://shopmanagerback.onrender.com/api/upload/upload-file", {
                 method: "POST",
                 body: formData,
             });
@@ -83,7 +83,8 @@ const AddProducts = () => {
     return (
         <div className='w-[100vw] h-[100vh] bg-[#F3F4F6] flex items-center justify-center'>
             <div className="bg-white rounded-lg border-2 border-gray-300 p-6 max-w-md w-full">
-                <h3 className="text-xl md:text-3xl font-medium text-white bg-indigo-700 px-3 py-2 rounded-md mb-4">Add New Product</h3>
+                <h3 className="text-xl md:text-3xl font-medium text-white bg-indigo-700 px-3 py-2 rounded-md mb-4">Add New Product <div className='text-sm mt-3'>or scan barcode</div></h3>
+                
                 <form onSubmit={handleClick}>
                     <div className="space-y-4">
                         <div>
@@ -92,7 +93,7 @@ const AddProducts = () => {
                         </div>
                         <div>
                             <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
-                            <select id="category" className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1" onChange={(e) => { setCategory(e.target.value); }} >
+                            <select id="category" className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300  focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1" onChange={(e) => { setCategory(e.target.value); }} >
                                 <option value="Furniture">Furniture</option>
                                 <option value="Snacks">Snacks</option>
                                 <option value="Home and Kitchen">Home and Kitchen</option>
@@ -107,26 +108,26 @@ const AddProducts = () => {
                         </div>
                         <div>
                             <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity</label>
-                            <input type="number" id="quantity" placeholder='Quantity' className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1" onChange={(e) => { setQuantity(e.target.value); }} />
+                            <input type="number" id="quantity" placeholder='Quantity' className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300  focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1" onChange={(e) => { setQuantity(e.target.value); }} />
                         </div>
                         <div>
                             <label htmlFor="retailPrice" className="block text-sm font-medium text-gray-700">Retail Price (₹)</label>
-                            <input type="number" id="retailPrice" placeholder='Retail price' className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1" onChange={(e) => { setRetailPrice(e.target.value); }} />
+                            <input type="number" id="retailPrice" placeholder='Retail price' className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300  focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1" onChange={(e) => { setRetailPrice(e.target.value); }} />
                         </div>
                         <div>
                             <label htmlFor="wholesalePrice" className="block text-sm font-medium text-gray-700">Wholesale Price (₹)</label>
-                            <input type="number" id="wholesalePrice" placeholder='Wholesale Price' className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1"
+                            <input type="number" id="wholesalePrice" placeholder='Wholesale Price' className="mt-1 focus:border-2 block w-full rounded-sm border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 outline-none px-3 py-1"
                                 onChange={(e) => { setWholesalePrice(e.target.value); }} />
                         </div>
                         <div>
-                            <input type="file" placeholder='Upload Image' className='px-3 py-1 border-2 rounded-md w-full border-gray-200' onChange={handleUpload} />
+                            <input type="file" placeholder='Upload Image' className='px-3 py-1 border-2 rounded-md w-full border-gray-200 cursor-pointer' onChange={handleUpload} />
                         </div>
                     </div>
                     <div className="mt-6 flex justify-end space-x-3">
                         <button type="button" className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" onClick={() => {
                             navigate("/dashboard")
                         }}>Cancel</button>
-                        <button type="submit" disabled={loading} className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">{loading ? 'Uploading...' : 'Add Product'}</button>
+                        <button type="submit" disabled={loading} className="px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">{loading ? 'Uploading...' : 'Add Product'}</button>
                     </div>
                 </form>
             </div>

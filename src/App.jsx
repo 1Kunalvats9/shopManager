@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard"
 import AddProducts from './components/AddProducts'
 import SellProducts from './components/SellProducts'
 import { Toaster } from 'react-hot-toast'
+import BarcodeScanner from './components/Barcode'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add-products" element={<AddProducts />} />
           <Route path="/sell-products" element={<SellProducts />} />
+          <Route path='/barcode' element={<BarcodeScanner />} />
         </Routes>
       </BrowserRouter>
     </>
