@@ -10,42 +10,52 @@ const AddProducts = () => {
     const [wholesalePrice, setWholesalePrice] = useState(0)
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("")
+    const [loading, setLoading] = useState(false);
     const [url, setUrl] = useState("")
     const router = useNavigate()
     const handleUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
-      
+    
         const formData = new FormData();
         formData.append("file", file);
-      
+        setLoading(true); // Start loading
+    
         try {
-          const res = await fetch("https://shopmanagerback.onrender.com/api/upload/upload-file", {
-            method: "POST",
-            body: formData,
-          });
-      
-          if (!res.ok) {
-            const errorData = await res.json();
-            console.error("Upload error:", errorData.error);
-            return;
-          }
-      
-          const data = await res.json();
-          setUrl(data.url); // Set uploaded image URL
-          console.log("✅ Uploaded URL:", data.url);
+            const res = await fetch("http://localhost:3000/api/upload/upload-file", {
+                method: "POST",
+                body: formData,
+            });
+    
+            if (!res.ok) {
+                const errorData = await res.json();
+                console.error("Upload error:", errorData.error);
+                toast.error("Image upload failed ❌");
+                setLoading(false);
+                return;
+            }
+    
+            const data = await res.json();
+            setUrl(data.url);
+            toast.success("Image uploaded ✅");
         } catch (err) {
-          console.error("❌ Upload failed:", err.message);
+            console.error("❌ Upload failed:", err.message);
+            toast.error("Image upload error");
+        } finally {
+            setLoading(false); // Stop loading
         }
-      };
-      
+    };
     const handleClick = async (e) => {
         e.preventDefault();
-        if (!url) {
-            alert("Image is still uploading, please wait.");
+        if (loading) {
+            toast.error("Image is still uploading, please wait...");
             return;
         }
-
+        if (!url) {
+            toast.error("Please upload an image first.");
+            return;
+        }
+    
         try {
             const email = localStorage.getItem("email");
             const res = await fetch("https://shopmanagerback.onrender.com/api/inventory/inventoryput", {
@@ -53,23 +63,23 @@ const AddProducts = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, name, category, quantity, retailPrice, wholesalePrice, url }),
             });
-
+    
             if (!res.ok) {
                 const errorData = await res.json();
                 throw new Error(errorData.error || "Failed to add product");
             }
-
+    
             const data = await res.json();
-            toast.success("Product added Successfully ✅"); // ✅ Moved before navigation
+            toast.success("Product added Successfully ✅");
             setTimeout(() => {
                 router("/dashboard");
-            }, 1000); 
-            console.log("✅ Product added successfully:", data);
+            }, 1000);
         } catch (err) {
             console.error("❌ Error adding product:", err.message);
+            toast.error("Failed to add product");
         }
     };
-
+    
     return (
         <div className='w-[100vw] h-[100vh] bg-[#F3F4F6] flex items-center justify-center'>
             <div className="bg-white rounded-lg border-2 border-gray-300 p-6 max-w-md w-full">
@@ -116,7 +126,7 @@ const AddProducts = () => {
                         <button type="button" className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" onClick={() => {
                             router("/dashboard")
                         }}>Cancel</button>
-                        <button type="submit" className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Add Product</button>
+                        <button type="submit" disabled={loading} className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">{loading ? 'Uploading...' : 'Add Product'}</button>
                     </div>
                 </form>
             </div>
